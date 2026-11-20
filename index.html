@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beep Fresher Jobs — India's Fresher & Internship Job Board</title>
+  <meta name="description" content="Discover 200+ verified fresher, entry-level, and internship jobs across India's top tech startups and public ATS boards. Auto-refreshed daily and tagged with Google Gemini 2.5 Flash.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Sticky Top Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-black text-xl">
+          ⚡
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">Beep Fresher Jobs</h1>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+              India
+            </span>
+          </div>
+          <p class="text-xs text-slate-500">Curated fresher & internship opportunities • AI-powered data pipeline</p>
+        </div>
+      </div>
+
+      <div class="flex items-center flex-wrap gap-2 text-xs">
+        <!-- Daily Refresh Badge -->
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Daily Auto-Refresh (7:00 AM IST)</span>
+        </div>
+        <!-- Last Updated Badge -->
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 font-medium" id="headerLastUpdated">
+          <span>🕒 Last Updated: Loading...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Metrics Banner -->
+  <section class="bg-gradient-to-b from-slate-100 to-slate-50 border-b border-slate-200 pt-8 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold uppercase tracking-wider mb-3">
+          🚀 Zero Browser Scraping • 100% ToS-Safe Public ATS APIs
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Launch Your Tech Career in India
+        </h2>
+        <p class="mt-3 text-base text-slate-600">
+          Real-time fresher, internship, and associate postings from Greenhouse, Lever, and remote tech job boards. Classified with Google Gemini 2.5 Flash.
+        </p>
+      </div>
+
+      <!-- Live Metrics Dashboard -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <!-- Metric 1 -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow transition-shadow">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Active Fresher Posts</span>
+            <span class="text-lg">💼</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="statActiveJobs">--</div>
+          <p class="text-xs text-emerald-600 mt-1 font-medium">100% Verified Live Postings</p>
+        </div>
+
+        <!-- Metric 2 -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow transition-shadow">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Duplicates Removed</span>
+            <span class="text-lg">🧹</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="statDuplicatesRemoved">--</div>
+          <p class="text-xs text-slate-500 mt-1 font-medium">SHA-256 + Canonical URL</p>
+        </div>
+
+        <!-- Metric 3 -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow transition-shadow">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Cities Covered</span>
+            <span class="text-lg">📍</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="statCitiesCovered">--</div>
+          <p class="text-xs text-slate-500 mt-1 font-medium">Pan-India & Remote</p>
+        </div>
+
+        <!-- Metric 4 -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow transition-shadow">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">LLM Tagging Cost</span>
+            <span class="text-lg">⚡</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="statCostPer1k">--</div>
+          <p class="text-xs text-indigo-600 mt-1 font-medium" id="statModelUsed">Gemini 2.5 Flash</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content & Job Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    
+    <!-- Search & Filters Container -->
+    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm mb-8 space-y-4">
+      <!-- Search Input -->
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <input 
+          type="text" 
+          id="searchInput"
+          placeholder="Search by role, job title, company (e.g. Frontend, Razorpay, SDE-1, Python)..." 
+          class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-sm transition-all shadow-sm placeholder:text-slate-400"
+        />
+        <button id="clearSearchBtn" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Filter Dropdowns Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+        <!-- Role Filter -->
+        <div>
+          <label for="roleFilter" class="block text-xs font-semibold text-slate-600 mb-1">Functional Role</label>
+          <select id="roleFilter" class="w-full py-2.5 px-3 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all cursor-pointer">
+            <option value="">All Roles</option>
+          </select>
+        </div>
+
+        <!-- City Filter -->
+        <div>
+          <label for="cityFilter" class="block text-xs font-semibold text-slate-600 mb-1">Location / City</label>
+          <select id="cityFilter" class="w-full py-2.5 px-3 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all cursor-pointer">
+            <option value="">All Locations</option>
+          </select>
+        </div>
+
+        <!-- Experience Level Filter -->
+        <div>
+          <label for="expFilter" class="block text-xs font-semibold text-slate-600 mb-1">Experience Level</label>
+          <select id="expFilter" class="w-full py-2.5 px-3 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all cursor-pointer">
+            <option value="">All Experience Levels</option>
+          </select>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="flex items-end">
+          <button id="resetFiltersBtn" class="w-full py-2.5 px-4 rounded-lg border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Filters & Counter Row -->
+      <div class="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100 flex-wrap gap-2">
+        <div id="resultsCountText" class="font-medium">
+          Loading jobs...
+        </div>
+        <div id="sourceBreakdownPills" class="flex items-center gap-1.5 flex-wrap">
+          <!-- Source breakdown badges will appear here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div id="jobsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Skeleton loaders while fetching -->
+      <div class="animate-pulse bg-white p-6 rounded-2xl border border-slate-200 h-64"></div>
+      <div class="animate-pulse bg-white p-6 rounded-2xl border border-slate-200 h-64"></div>
+      <div class="animate-pulse bg-white p-6 rounded-2xl border border-slate-200 h-64"></div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-slate-200 max-w-xl mx-auto my-8">
+      <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-2xl text-slate-400 mb-4">
+        🔍
+      </div>
+      <h3 class="text-base font-bold text-slate-900">No matching jobs found</h3>
+      <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+        Try adjusting your keywords, selecting a different city, or resetting all filters.
+      </p>
+      <button id="emptyResetBtn" class="mt-4 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm transition-all">
+        Clear All Filters
+      </button>
+    </div>
+
+    <!-- Load More Button -->
+    <div id="loadMoreContainer" class="mt-10 text-center hidden">
+      <button id="loadMoreBtn" class="px-6 py-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 shadow-sm text-slate-700 font-semibold text-xs transition-all hover:bg-slate-50 active:scale-95 inline-flex items-center gap-2">
+        <span>Load More Jobs</span>
+        <span id="loadMoreRemaining" class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px]"></span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-8 mt-12 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-800">Beep Fresher Jobs</span>
+        <span>•</span>
+        <span>Open-source AI-curated Job Pipeline for Indian Students</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-600">
+        <a href="jobs.json" target="_blank" class="hover:text-brand-600 font-medium transition-colors">API: jobs.json</a>
+        <span>•</span>
+        <a href="audit_50_sample.csv" download class="hover:text-brand-600 font-medium transition-colors">Export: audit_50_sample.csv</a>
+        <span>•</span>
+        <span>Powered by <strong class="text-slate-800">Gemini 2.5 Flash</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic (Vanilla JS) -->
+  <script>
+    // State management
+    let allJobs = [];
+    let filteredJobs = [];
+    let displayedCount = 0;
+    const PAGE_SIZE = 30;
+
+    // DOM Elements
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const roleFilter = document.getElementById('roleFilter');
+    const cityFilter = document.getElementById('cityFilter');
+    const expFilter = document.getElementById('expFilter');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+    const resultsCountText = document.getElementById('resultsCountText');
+    const jobsGrid = document.getElementById('jobsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const emptyResetBtn = document.getElementById('emptyResetBtn');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadMoreRemaining = document.getElementById('loadMoreRemaining');
+
+    // Metrics DOM Elements
+    const statActiveJobs = document.getElementById('statActiveJobs');
+    const statDuplicatesRemoved = document.getElementById('statDuplicatesRemoved');
+    const statCitiesCovered = document.getElementById('statCitiesCovered');
+    const statCostPer1k = document.getElementById('statCostPer1k');
+    const statModelUsed = document.getElementById('statModelUsed');
+    const headerLastUpdated = document.getElementById('headerLastUpdated');
+    const sourceBreakdownPills = document.getElementById('sourceBreakdownPills');
+
+    // Initialize application
+    async function init() {
+      try {
+        const response = await fetch('jobs.json?t=' + Date.now());
+        if (!response.ok) {
+          throw new Error('Failed to load jobs.json (status ' + response.status + ')');
+        }
+        const data = await response.json();
+        
+        allJobs = data.jobs || [];
+        const stats = data.stats || {};
+
+        // Populate metrics
+        statActiveJobs.textContent = (stats.total_live_jobs || allJobs.length).toLocaleString();
+        statDuplicatesRemoved.textContent = (stats.duplicates_removed || 0).toLocaleString();
+        statCitiesCovered.textContent = stats.unique_cities_count || calculateUniqueCities(allJobs);
+        
+        if (stats.est_cost_per_1000_usd !== undefined) {
+          statCostPer1k.textContent = `$${stats.est_cost_per_1000_usd} / 1k`;
+          statModelUsed.textContent = `${stats.model_used || 'Gemini 2.5 Flash'} (₹${stats.est_cost_per_1000_inr || '0.42'})`;
+        } else {
+          statCostPer1k.textContent = '< $0.01 / 1k';
+        }
+
+        if (data.last_updated_ist) {
+          headerLastUpdated.innerHTML = `<span>🕒 Refreshed: ${data.last_updated_ist}</span>`;
+        } else {
+          headerLastUpdated.innerHTML = `<span>🕒 Refreshed: Today</span>`;
+        }
+
+        // Render sources breakdown
+        renderSourcePills(stats.sources_breakdown || {});
+
+        // Populate dynamic dropdowns
+        populateDropdowns(allJobs);
+
+        // Initial Filter and Render
+        applyFilters();
+
+      } catch (err) {
+        console.error('Error loading jobs:', err);
+        jobsGrid.innerHTML = `
+          <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-red-200 p-6">
+            <p class="text-red-600 font-bold">Failed to load jobs data.</p>
+            <p class="text-xs text-slate-500 mt-2">Make sure <code>pipeline.py</code> has been run and generated <code>jobs.json</code>.</p>
+          </div>
+        `;
+        resultsCountText.textContent = 'Error loading jobs data';
+      }
+    }
+
+    function calculateUniqueCities(jobs) {
+      const set = new Set();
+      jobs.forEach(j => { if (j.city) set.add(j.city); });
+      return set.size;
+    }
+
+    function renderSourcePills(sources) {
+      sourceBreakdownPills.innerHTML = '';
+      const entries = Object.entries(sources);
+      if (entries.length === 0) return;
+
+      entries.forEach(([name, count]) => {
+        if (count > 0) {
+          const pill = document.createElement('span');
+          pill.className = 'inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200';
+          pill.textContent = `${name}: ${count}`;
+          sourceBreakdownPills.appendChild(pill);
+        }
+      });
+    }
+
+    function populateDropdowns(jobs) {
+      const roleCounts = {};
+      const cityCounts = {};
+      const expCounts = {};
+
+      jobs.forEach(job => {
+        const r = job.role || 'Other';
+        roleCounts[r] = (roleCounts[r] || 0) + 1;
+
+        const c = job.city || 'Other';
+        cityCounts[c] = (cityCounts[c] || 0) + 1;
+
+        const e = job.experience_level || 'Fresher / Entry-Level';
+        expCounts[e] = (expCounts[e] || 0) + 1;
+      });
+
+      // Populate Role Dropdown (sorted by count descending)
+      Object.entries(roleCounts)
+        .sort((a, b) => b[1] - a[1])
+        .forEach(([role, count]) => {
+          const opt = document.createElement('option');
+          opt.value = role;
+          opt.textContent = `${role} (${count})`;
+          roleFilter.appendChild(opt);
+        });
+
+      // Populate City Dropdown (sorted by count descending)
+      Object.entries(cityCounts)
+        .sort((a, b) => b[1] - a[1])
+        .forEach(([city, count]) => {
+          const opt = document.createElement('option');
+          opt.value = city;
+          opt.textContent = `${city} (${count})`;
+          cityFilter.appendChild(opt);
+        });
+
+      // Populate Experience Level Dropdown
+      Object.entries(expCounts)
+        .sort((a, b) => b[1] - a[1])
+        .forEach(([exp, count]) => {
+          const opt = document.createElement('option');
+          opt.value = exp;
+          opt.textContent = `${exp} (${count})`;
+          expFilter.appendChild(opt);
+        });
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedRole = roleFilter.value;
+      const selectedCity = cityFilter.value;
+      const selectedExp = expFilter.value;
+
+      clearSearchBtn.classList.toggle('hidden', query.length === 0);
+
+      filteredJobs = allJobs.filter(job => {
+        // Keyword Search matching title, company, role, city
+        if (query) {
+          const matchTitle = (job.title || '').toLowerCase().includes(query);
+          const matchCompany = (job.company || '').toLowerCase().includes(query);
+          const matchRole = (job.role || '').toLowerCase().includes(query);
+          const matchCity = (job.city || '').toLowerCase().includes(query);
+          const matchRawLoc = (job.raw_location || '').toLowerCase().includes(query);
+          if (!matchTitle && !matchCompany && !matchRole && !matchCity && !matchRawLoc) {
+            return false;
+          }
+        }
+
+        // Role Filter
+        if (selectedRole && job.role !== selectedRole) {
+          return false;
+        }
+
+        // City Filter
+        if (selectedCity && job.city !== selectedCity) {
+          return false;
+        }
+
+        // Experience Level Filter
+        if (selectedExp && job.experience_level !== selectedExp) {
+          return false;
+        }
+
+        return true;
+      });
+
+      // Reset pagination and render
+      displayedCount = 0;
+      jobsGrid.innerHTML = '';
+      renderNextBatch();
+    }
+
+    function renderNextBatch() {
+      const start = displayedCount;
+      const end = Math.min(start + PAGE_SIZE, filteredJobs.length);
+      const batch = filteredJobs.slice(start, end);
+
+      if (filteredJobs.length === 0) {
+        jobsGrid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        loadMoreContainer.classList.add('hidden');
+        resultsCountText.textContent = `Showing 0 of ${allJobs.length} jobs`;
+        return;
+      }
+
+      jobsGrid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+
+      const fragment = document.createDocumentFragment();
+
+      batch.forEach(job => {
+        const card = createJobCard(job);
+        fragment.appendChild(card);
+      });
+
+      jobsGrid.appendChild(fragment);
+      displayedCount = end;
+
+      // Update Results Counter
+      resultsCountText.textContent = `Showing ${displayedCount} of ${filteredJobs.length} jobs ${filteredJobs.length !== allJobs.length ? `(filtered from ${allJobs.length})` : ''}`;
+
+      // Update Load More Button
+      if (displayedCount < filteredJobs.length) {
+        loadMoreContainer.classList.remove('hidden');
+        const remaining = filteredJobs.length - displayedCount;
+        loadMoreRemaining.textContent = `${remaining} more`;
+      } else {
+        loadMoreContainer.classList.add('hidden');
+      }
+    }
+
+    function getExpBadgeClass(exp) {
+      if (!exp) return 'bg-slate-100 text-slate-700 border-slate-200';
+      const lower = exp.toLowerCase();
+      if (lower.includes('intern')) {
+        return 'bg-purple-50 text-purple-700 border-purple-200';
+      } else if (lower.includes('fresher') || lower.includes('entry')) {
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+      } else {
+        return 'bg-sky-50 text-sky-700 border-sky-200';
+      }
+    }
+
+    function getRoleBadgeClass(role) {
+      if (!role) return 'bg-slate-100 text-slate-700 border-slate-200';
+      switch (role) {
+        case 'Software Engineering':
+          return 'bg-indigo-50 text-indigo-700 border-indigo-200';
+        case 'Data & Analytics':
+          return 'bg-teal-50 text-teal-700 border-teal-200';
+        case 'Product Management':
+          return 'bg-amber-50 text-amber-700 border-amber-200';
+        case 'Design (UI/UX)':
+          return 'bg-rose-50 text-rose-700 border-rose-200';
+        case 'Marketing & Growth':
+          return 'bg-orange-50 text-orange-700 border-orange-200';
+        case 'Sales & BD':
+          return 'bg-blue-50 text-blue-700 border-blue-200';
+        default:
+          return 'bg-slate-100 text-slate-700 border-slate-200';
+      }
+    }
+
+    function createJobCard(job) {
+      const card = document.createElement('div');
+      card.className = 'group bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm hover:shadow-md hover:border-brand-300 transition-all duration-200 flex flex-col justify-between';
+
+      const expBadge = getExpBadgeClass(job.experience_level);
+      const roleBadge = getRoleBadgeClass(job.role);
+
+      card.innerHTML = `
+        <div>
+          <!-- Badges Row -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold border ${expBadge}">
+              ${escapeHtml(job.experience_level || 'Fresher')}
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200 max-w-[120px] truncate" title="${escapeHtml(job.source || '')}">
+              ${escapeHtml(job.source || 'Public ATS')}
+            </span>
+          </div>
+
+          <!-- Job Title -->
+          <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-600 transition-colors line-clamp-2 leading-snug">
+            ${escapeHtml(job.title || 'Untitled Role')}
+          </h3>
+
+          <!-- Company -->
+          <div class="mt-1 flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+            <span class="text-slate-400">🏢</span>
+            <span>${escapeHtml(job.company || 'Tech Startup')}</span>
+          </div>
+
+          <!-- Role & Location Meta -->
+          <div class="mt-3.5 space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium border ${roleBadge}">
+                ${escapeHtml(job.role || 'Other')}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-1.5 text-xs text-slate-500" title="Original: ${escapeHtml(job.raw_location || '')}">
+              <span class="text-slate-400">📍</span>
+              <span class="font-medium text-slate-700">${escapeHtml(job.city || 'Remote')}</span>
+              ${job.raw_location && job.raw_location.toLowerCase() !== (job.city || '').toLowerCase() ? 
+                `<span class="text-[11px] text-slate-400 truncate max-w-[150px]">(${escapeHtml(job.raw_location)})</span>` : ''}
+            </div>
+          </div>
+        </div>
+
+        <!-- Action / Apply Button -->
+        <div class="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400 font-mono">ID: ${escapeHtml((job.id || '').substring(0, 8))}</span>
+          <a 
+            href="${escapeHtml(job.url || '#')}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-brand-600 text-white font-medium text-xs transition-colors shadow-sm"
+          >
+            <span>Apply Now</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function resetFilters() {
+      searchInput.value = '';
+      roleFilter.value = '';
+      cityFilter.value = '';
+      expFilter.value = '';
+      applyFilters();
+    }
+
+    // Event Listeners
+    searchInput.addEventListener('input', applyFilters);
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      applyFilters();
+    });
+    roleFilter.addEventListener('change', applyFilters);
+    cityFilter.addEventListener('change', applyFilters);
+    expFilter.addEventListener('change', applyFilters);
+    resetFiltersBtn.addEventListener('click', resetFilters);
+    emptyResetBtn.addEventListener('click', resetFilters);
+    loadMoreBtn.addEventListener('click', renderNextBatch);
+
+    // Bootstrap
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+name: Daily Fresher Jobs Refresh
+
+on:
+  schedule:
+    # 7:00 AM IST daily (1:30 AM UTC)
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Job Ingestion and LLM Tagging Pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python pipeline.py
+
+      - name: Commit and Push Updated Jobs Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs.json audit_50_sample.csv
+          git diff --staged --quiet || (git commit -m "chore(data): auto-refresh fresher jobs [$(date -u +'%Y-%m-%d %H:%M UTC')]" && git push)
